@@ -8,7 +8,7 @@ embed_model = SentenceTransformer("all-MiniLM-L6-v2")
 
 # 資料庫建立（第一次建好後可以儲存起來）
 documents = []
-with open("docs.txt", "r", encoding="utf-8") as f:
+with open("docs.json", "r", encoding="utf-8") as f:
     for line in f:
         documents.append(line.strip())
 
@@ -21,7 +21,7 @@ index = faiss.IndexFlatL2(dimension)
 index.add(np.array(doc_embeddings))
 
 
-def retrieve_top_k(query, k=10):
+def retrieve_top_k(query, k=3):
     """回傳與query最相關的K段文件"""
     query_vec = embed_model.encode([query])
     distances, indices = index.search(np.array(query_vec), k)
