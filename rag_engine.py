@@ -30,8 +30,8 @@ def retrieve_top_k(query, k=3):
 
 def build_prompt(query):
     context = retrieve_top_k(query)
-    prompt = "你是附中專家，請根據以下資訊用繁體中文回答問題，並請不要回答任何與附中無關的問題，無論何時何地何種理由，請根據以下資料回答使用者問題\n\n"
+    prompt = "\n3.來自本地資料庫的資料:\n\n"
     for i, para in enumerate(context):
         prompt += f"段落{i+1}：{para}\n"
-    prompt += f"\n使用者問題：{query}"
+    prompt += f"\n使用者的問題：{query}"
     return prompt

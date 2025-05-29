@@ -3,9 +3,7 @@ import os
 from discord.ext import commands
 from discord import app_commands
 from dotenv import load_dotenv
-from rag_engine import build_prompt
-from serpapi import GoogleSearch
-import google.generativeai as genai
+from generate_response import generate
 # 為方便管理，將TOKEN寫在.env檔案裡，並用dotenv調用
 load_dotenv()
 TOKEN = os.getenv("DISCORD_TOKEN")
@@ -18,94 +16,6 @@ SERPAPI_KEY = os.getenv("SERPAPI_API_KEY")
 chat_history = ""
 #用來記錄對話次數
 t = 0 
-
-# 設定 API 金鑰
-genai.configure(api_key=os.getenv("GEMINI_API"))
-
-# 設定模型
-model = genai.GenerativeModel("gemini-2.0-flash")
-    #prompt 爲使用者輸入
-def generate(prompt):
-    try:
-        #user_input用來存放最後要交給ai的prompt
-        user_input = ""
-        global chat_history 
-        #如果有聊天歷史記錄，將其加入要交給ai的prompt
-        if   chat_history :
-            user_input+=f"這是使用者與你對話的紀錄:\n{chat_history}\n"
-        #加入RAG採集到的資料
-        user_input += build_prompt(prompt)
-        
-        #觀察AI拿到的資料    
-        print(f"{user_input}\n---------------------------分隔線---------------------------\n")
-        # 產生回應（串流方式）
-        response = model.generate_content(user_input, stream=True)
-
-        # 輸出回應
-        response_text = ""
-        for chunk in response:
-            print(chunk.text, end="", flush=True)
-            response_text += chunk.text
-
-        return response_text
-
-    except Exception as e:
-        print(f"\n❌ 錯誤：{e}")
-
-def generate_with_google_search(prompt):
-    try:
-        #user_input用來存放最後要交給ai的prompt
-        user_input = ""
-        global chat_history 
-        #如果有聊天歷史記錄，將其加入要交給ai的prompt
-        if   chat_history :
-            user_input+=f"這是使用者與你對話的紀錄:\n{chat_history}\n"
-        #加入google的搜尋結果
-        user_input += f"google 搜尋結果：{summarize_search(search_google(prompt))}\n"
-        #加入RAG採集到的資料
-        user_input += build_prompt(prompt)
-        #觀察AI拿到的資料    
-        print(f"{user_input}\n---------------------------分隔線---------------------------\n")
-        # 產生回應（串流方式）
-        response = model.generate_content(user_input, stream=True)
-
-        # 輸出回應
-        response_text = ""
-        for chunk in response:
-            print(chunk.text, end="", flush=True)
-            response_text += chunk.text
-
-        return response_text
-
-    except Exception as e:
-        print(f"\n❌ 錯誤：{e}")
-        
-def search_google(query):
-    params = {
-        "engine": "google",
-        "q": query,
-        "api_key": SERPAPI_KEY
-    }
-    search = GoogleSearch(params)
-    results = search.get_dict()
-    return results.get("organic_results", [])
-
-
-def summarize_search(query):
-    results = search_google(query)
-    if not results:
-        return "沒有找到任何搜尋結果"
-
-    content = ""
-    for i, res in enumerate(results[:3]):  # 取前3筆
-        title = res.get("title", "")
-        snippet = res.get("snippet", "")
-        content += f"{i+1}. {title}\n{snippet}\n\n"
-
-    prompt = f"以下是我對『{query}』的搜尋結果，請幫我整理重點並總結分析：\n{content}"
-    response = model.generate_content(prompt)
-    return response.text
-
 # 創建許可權物件
 intents = discord.Intents.default()
 # 接發訊息權限
@@ -124,12 +34,11 @@ async def ask(interaction: discord.Interaction, text: str):
     
     # 回覆私密訊息
     await interaction.response.defer(ephemeral=True)  # 告訴 Discord「我在處理中」
-
-    # 呼叫 Gemini  API
-    result =  generate(text)
-    global t 
-    t+=1
     global chat_history
+    global t 
+    # 呼叫 Gemini  API，添加RAG的資料
+    result =  generate(text,chat_history,mode="just_RAG",t=t)
+    t+=1
     chat_history +=f"第{t}次的使用者輸入:{text}\n"
     chat_history +=f"對第{t}次使用者的回覆:{result}\n"
     await interaction.followup.send(f"AI 回答：{result}", ephemeral=True)
@@ -139,12 +48,11 @@ async def ask(interaction: discord.Interaction, text: str):
 async def googole_search(interaction: discord.Interaction, text: str):
     # 回覆私密訊息
     await interaction.response.defer(ephemeral=True)  # 告訴 Discord「我在處理中」
-
-    # 呼叫 Gemini  API
-    result =  generate_with_google_search(text)
-    global t 
-    t+=1
     global chat_history
+    global t 
+    # 呼叫 Gemini  API ，添加RAG&GOOGLE的資料進入PROMPT
+    result =  generate(text,chat_history,mode="google_search",t=t)
+    t+=1
     chat_history +=f"第{t}次的使用者輸入:{text}\n"
     chat_history +=f"對第{t}次使用者的回覆:{result}\n"
     await interaction.followup.send(f"AI 回答：{result}", ephemeral=True)
