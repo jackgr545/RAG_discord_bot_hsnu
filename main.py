@@ -6,6 +6,8 @@ from dotenv import load_dotenv
 from generate_response import generate
 from datetime import datetime
 from nasa import apod
+from google_map import get_guide
+from google_map import clarify_destinations
 # 為方便管理，將TOKEN寫在.env檔案裡，並用dotenv調用
 load_dotenv()
 TOKEN = os.getenv("DISCORD_TOKEN")
@@ -85,6 +87,20 @@ async def nasa_picture(interaction :discord.Interaction, date :str):
     except ValueError:
         # 如果解析失敗，提示使用者輸入正確的格式
         await interaction.followup.send("請輸入正確的日期格式，例如：YYYY-MM-DD",ephemeral=True)
+@bot.tree.command(name="google_map",description="請輸入您精確的經緯度座標以及想去的地點",guild=GUILD_ID)
+@app_commands.describe(你的位置= "lat,lon",想去之地="ex:舊北樓")
+async def google_map(interaction :discord.Interaction,你的位置 : str,想去之地 : str):
+    await interaction.response.defer(ephemeral=True)
+    
+    global chat_history
+    global t 
+    想去之地=clarify_destinations(想去之地).strip()#清理多餘的\n
+    latitude,longitude= 你的位置.split(",")
+    result = get_guide(origin_lat=latitude,origin_lng=longitude,destination_name=想去之地)
+    t+=1
+    chat_history+=f"第{t}次的使用者輸入:幫我規劃從{你的位置}到{想去之地}的路線，並提供導覽\n"
+    chat_history+=f"對第{t}次使用者的回覆:{result}\n"
+    await interaction.followup.send(f"AI的回答:{result}",ephemeral=True)
 # 當機器人上線時執行
 @bot.event 
 async def on_ready():

@@ -48,6 +48,8 @@ def generate(user_input,chat_history,mode,t):
             "title": "UGC 1810: Wildly Interacting Galaxy from Hubble",
             "url": "https://apod.nasa.gov/apod/image/2506/Arp273Main_HubblePestana_1080.jpg"
             }"""
+        if not mode =="nasa_apod" :
+            prompt +=f"使用者問題:{user_input}\n"
         #觀察AI拿到的資料    
         print(f"\n--------------------------以下為第{t+1}輪對話--------------------------\n輸入:\n{prompt}")
         # 產生回應（串流方式）
