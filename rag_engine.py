@@ -33,5 +33,5 @@ def build_prompt(query):
     prompt = "\n3.來自本地資料庫的資料:\n\n"
     for i, para in enumerate(context):
         prompt += f"段落{i+1}：{para}\n"
-    prompt += f"\n使用者的問題：{query}"
+    
     return prompt
