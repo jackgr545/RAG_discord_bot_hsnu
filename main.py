@@ -55,7 +55,7 @@ async def googole_search(interaction: discord.Interaction, user_input: str):
     global chat_history
     global t 
     # 呼叫 Gemini  API ，添GOOGLE的資料進入PROMPT
-    result =  generate(user_input=user_input,chat_history=chat_history,mode="google_search",t=t)
+    result = generate(user_input=user_input,chat_history=chat_history,mode="google_search",t=t)
     t+=1
     chat_history +=f"第{t}次的使用者輸入:{user_input}\n"
     chat_history +=f"對第{t}次使用者的回覆:{result}\n"

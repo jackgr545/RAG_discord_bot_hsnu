@@ -52,8 +52,8 @@ def generate(user_input,chat_history,mode,t):
             prompt +=f"使用者問題:{user_input}\n"
         #觀察AI拿到的資料    
         print(f"\n--------------------------以下為第{t+1}輪對話--------------------------\n輸入:\n{prompt}")
-        # 產生回應（串流方式）
-        response = model.generate_content(prompt, stream=True)
+        # 產生回應
+        response = model.generate_content(prompt)
 
         # 輸出回應
         response_text = ""
