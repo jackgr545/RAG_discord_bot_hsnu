@@ -6,7 +6,7 @@
 
 ## 功能簡介
 
-- 🤖 使用 [Gemini API](https://ai.google.dev/) 根據輸入資料進行自然語言生成。
+- 🤖 使用 [Gemini API](https://aistudio.google.com/apikey) 根據輸入資料進行自然語言生成。
 - 🔍 整合 [SerpAPI](https://serpapi.com/) 搜尋 Google 網頁內容。
 - 🗺️ 利用 [Google Maps API](https://developers.google.com/maps) 提供即時導航功能。
 - 🌌 額外支援 [NASA API](https://api.nasa.gov/) 顯示每日星空美照  
