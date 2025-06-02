@@ -887,11 +887,11 @@ def list_available_destinations():
         name = zone.get("name", "")
         nickname = zone.get("nickname", "")
         type=zone.get("type", "")
-        
+        description =zone.get("description", "")
         if nickname:
-            destinations+=(f"{name}({nickname}--{type})\n")
+            destinations+=(f"{name}({nickname}--{type}，地點特色:{description})\n")
         else:
-            destinations+=(f"{name}--{type}\n")
+            destinations+=(f"{name}--{type}，地點特色:{description}\n")
     
     return destinations
 def clarify_destinations(user_input):
