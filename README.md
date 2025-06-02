@@ -103,6 +103,7 @@
   ![螢幕擷取畫面 2025-06-02 204040](https://github.com/user-attachments/assets/920d3ba3-c6a6-4316-93f3-43043440e9c1)
 
 3. 貼到`.env`中的GEMINI_API ="**在這裡貼上您的API KEY**"
+   
   請不要隨意洩漏您的API，這相當於忘記登出的GMAIL帳號，任何人都可以使用
 
 ---
