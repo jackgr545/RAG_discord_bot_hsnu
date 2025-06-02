@@ -140,11 +140,14 @@
    ![螢幕擷取畫面 2025-06-02 211211](https://github.com/user-attachments/assets/af1d3853-2caf-45ba-9f3e-2c35ef3bc060)
    
 6. 將API restrictions 切換成Restrict key並勾選Directions api，最後記得按下保存。
-   ![螢幕擷取畫面 2025-06-02 211450](https://github.com/user-attachments/assets/ea60e6dd-2ea6-43ca-82fc-7958b935533f)
    
    ![螢幕擷取畫面 2025-06-02 211354](https://github.com/user-attachments/assets/4ef2fb38-410e-4a84-a71c-737a483e0b71)
    
-7. 點擊show key，並複製粘貼到`.env`中的GOOGLE_MAPS_API ="**在這裡貼上您的API KEY**"
+   ![螢幕擷取畫面 2025-06-02 211450](https://github.com/user-attachments/assets/ea60e6dd-2ea6-43ca-82fc-7958b935533f)
+   
+8. 點擊show key，並複製粘貼到`.env`中的GOOGLE_MAPS_API ="**在這裡貼上您的API KEY**"
+   
+    ![螢幕擷取畫面 2025-06-02 214408](https://github.com/user-attachments/assets/2ba93e86-be76-4ce0-9abf-d81058b6a4b5)
 
 ---
 
@@ -165,7 +168,7 @@
     
 2. 如果成功執行terminal 上會有如下輸出
 
-   ![螢幕擷取畫面 2025-06-02 212454](https://github.com/user-attachments/assets/b7de9ab1-6c1b-4ec8-b5b5-5b1fd888220b)
-   
+  ![螢幕擷取畫面 2025-06-02 212454](https://github.com/user-attachments/assets/9bdd9672-bf0f-4764-b8af-54bdd303a260)
+
 3. 可以去discord 中測試機器人了喔!!
 
