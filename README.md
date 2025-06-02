@@ -60,20 +60,20 @@
    
    ![螢幕擷取畫面 2025-06-02 175737](https://github.com/user-attachments/assets/7d9db1a4-a064-4433-b796-e44fd0a703ea)
    
-1. 幫機器人命名，並確保OAuth2 URL Generator下的bot跟bot permittion administrator有被勾選
+2. 幫機器人命名，並確保OAuth2 URL Generator下的bot跟bot permittion administrator有被勾選
    
   ![螢幕擷取畫面 2025-06-02 193631](https://github.com/user-attachments/assets/0f090ffc-fc99-4a9f-8ae7-469dad2a4e2f)
   
   ![螢幕擷取畫面 2025-06-02 193753](https://github.com/user-attachments/assets/09c7114d-7a80-49ec-bdf2-579f9b5c641b)
-1. 複製Generated URL，貼到google的網址欄，即可邀請bot加入你的伺服器
+3. 複製Generated URL，貼到google的網址欄，即可邀請bot加入你的伺服器
    
   ![螢幕擷取畫面 2025-06-02 200857](https://github.com/user-attachments/assets/1ce2a407-1dba-45ff-ad77-d68e99dabe54)
   
-1. 切到bot類別下，把你能打開的選項都打開
+4. 切到bot類別下，把你能打開的選項都打開
    
   ![螢幕擷取畫面 2025-06-02 201831](https://github.com/user-attachments/assets/706b6541-08df-4f6e-a957-fce7ab65adbb)
 
-1. 按下Reset Token按鈕，並複製TOKEN，貼到`.env`中的DISCORD_TOKEN="**在這裡貼上您的token**"
+5. 按下Reset Token按鈕，並複製TOKEN，貼到`.env`中的DISCORD_TOKEN="**在這裡貼上您的token**"
    
   ![螢幕擷取畫面 2025-06-02 202038](https://github.com/user-attachments/assets/3dc2b358-e7fa-4551-bb76-0a4f1cffe564)
   
@@ -98,11 +98,11 @@
 ### GEMINI_API
 1. 前往[Gemini API](https://aistudio.google.com/apikey)，並點下create API
    ![螢幕擷取畫面 2025-06-02 203828](https://github.com/user-attachments/assets/04cdc7be-0121-4b72-b801-9c83e4f91e29)
-1. 複製API KEY
+2. 複製API KEY
    
   ![螢幕擷取畫面 2025-06-02 204040](https://github.com/user-attachments/assets/920d3ba3-c6a6-4316-93f3-43043440e9c1)
 
-1. 貼到`.env`中的GEMINI_API ="**在這裡貼上您的API KEY**"
+3. 貼到`.env`中的GEMINI_API ="**在這裡貼上您的API KEY**"
   請不要隨意洩漏您的API，這相當於忘記登出的GMAIL帳號，任何人都可以使用
 
 ---
@@ -110,41 +110,41 @@
 ### SERPAPI_API_KEY
 1. 前往[SerpAPI](https://serpapi.com/)，如果你是第一次來請註冊，驗證手機與電子郵件
    
-1. 登錄並複製
+2. 登錄並複製
    
    ![螢幕擷取畫面 2025-06-02 205248](https://github.com/user-attachments/assets/b6ed269c-f804-4aa1-8144-db0d2f7b2117)
    
-1. 貼到`.env`中的SERPAPI_API_KEY ="**在這裡貼上您的Your Private API Key**"
+3. 貼到`.env`中的SERPAPI_API_KEY ="**在這裡貼上您的Your Private API Key**"
   請不要隨意洩漏您的api
 
 ---
 ### GOOGLE_MAPS_API
 開始前提醒您，為了激活90天免費試用，您需要一張信用卡用於註冊
 1. 前往[GOOGLEE CLOUD CONSOLE](https://console.cloud.google.com/apis/dashboard)
-1. 隨便選一個project(可能有Gemini API)
+2. 隨便選一個project(可能有Gemini API)
    
   ![螢幕擷取畫面 2025-06-02 210153](https://github.com/user-attachments/assets/33e35a48-6ab3-41cc-9b36-7f6960f77848)
 
-1. 激活Directions api
+3. 激活Directions api
    
    ![螢幕擷取畫面 2025-06-02 210503](https://github.com/user-attachments/assets/4f08f15d-e8bc-477d-9d1c-c509e0550b5b)
    
    ![螢幕擷取畫面 2025-06-02 210642](https://github.com/user-attachments/assets/268c1b0c-bf05-4f59-a144-a26e860c92df)
    
-1. 創建api key
+4. 創建api key
    
    ![螢幕擷取畫面 2025-06-02 210906](https://github.com/user-attachments/assets/c041a638-208a-4e2a-bacc-046b39e40cf4)
    
-1. 創建完成後請點擊右側的edited api key
+5. 創建完成後請點擊右側的edited api key
    
    ![螢幕擷取畫面 2025-06-02 211211](https://github.com/user-attachments/assets/af1d3853-2caf-45ba-9f3e-2c35ef3bc060)
    
-1. 將API restrictions 切換成Restrict key並勾選Directions api，最後記得按下保存。
+6. 將API restrictions 切換成Restrict key並勾選Directions api，最後記得按下保存。
    ![螢幕擷取畫面 2025-06-02 211450](https://github.com/user-attachments/assets/ea60e6dd-2ea6-43ca-82fc-7958b935533f)
    
    ![螢幕擷取畫面 2025-06-02 211354](https://github.com/user-attachments/assets/4ef2fb38-410e-4a84-a71c-737a483e0b71)
    
-12. 點擊show key，並複製粘貼到`.env`中的GOOGLE_MAPS_API ="**在這裡貼上您的API KEY**"
+7. 點擊show key，並複製粘貼到`.env`中的GOOGLE_MAPS_API ="**在這裡貼上您的API KEY**"
 
 ---
 
@@ -156,15 +156,16 @@
 
 ----
 ##執行
+
 1. 在TERMINAL中輸入以下指令
    
     ```bash
     python main.py
     ```
     
-1. 如果成功執行terminal 上會有如下輸出
+2. 如果成功執行terminal 上會有如下輸出
 
    ![螢幕擷取畫面 2025-06-02 212454](https://github.com/user-attachments/assets/b7de9ab1-6c1b-4ec8-b5b5-5b1fd888220b)
    
-1. 可以去discord 中測試機器人了喔!!
+3. 可以去discord 中測試機器人了喔!!
 
