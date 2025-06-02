@@ -120,7 +120,7 @@
 ---
 ### GOOGLE_MAPS_API
 開始前提醒您，為了激活90天免費試用，您需要一張信用卡用於註冊
-1. 前往[GOOGLEE CLOUD CONSOLE](https://console.cloud.google.com/apis/dashboard)
+1. 前往[Google Cloud Console](https://console.cloud.google.com/apis/dashboard)
 2. 隨便選一個project(可能有Gemini API)
    
   ![螢幕擷取畫面 2025-06-02 210153](https://github.com/user-attachments/assets/33e35a48-6ab3-41cc-9b36-7f6960f77848)
