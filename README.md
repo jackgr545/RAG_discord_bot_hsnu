@@ -6,10 +6,18 @@
 
 ## 功能簡介
 
-- 🤖 使用 [Gemini API](https://aistudio.google.com/apikey) 根據輸入資料進行自然語言生成。
-- 🔍 整合 [SerpAPI](https://serpapi.com/) 搜尋 Google 網頁內容。
-- 🗺️ 利用 [Google Maps API](https://developers.google.com/maps) 提供即時導航功能。
-- 🌌 額外支援 [NASA API](https://api.nasa.gov/) 顯示每日星空美照  
+-  使用 [Gemini API](https://aistudio.google.com/apikey) 根據輸入資料進行自然語言生成。
+-  整合 [SerpAPI](https://serpapi.com/) 搜尋 Google 網頁內容。
+-  利用 [Google Maps API](https://developers.google.com/maps) 提供即時導航功能。
+-  額外支援 [NASA API](https://api.nasa.gov/) 顯示每日星空美照  
   > ~~雖然和校園導覽無關，但很浪漫就對了~~ ✨
 
 ---
+
+###安裝方式
+```bash
+git clone https://github.com/jackgr545/RAG_discord_bot_hsnu.git
+
+ˋˋˋmarkdown
+
+解壓縮並使用
