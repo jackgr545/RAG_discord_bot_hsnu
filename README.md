@@ -8,7 +8,7 @@
 
 - 使用 [Gemini API](https://aistudio.google.com/apikey) 進行自然語言生成，根據使用者輸入提供智能回應。
 - 整合 [SerpAPI](https://serpapi.com/)，可在 Discord 中直接搜尋 Google 網頁內容。
-- 利用 [Google Maps Direction_API]([https://developers.google.com/maps](https://developers.google.com/maps/documentation/directions/?hl=zh_TW) 提供即時的路線規劃與導航服務。
+- 利用 [Google Maps Direction_API](https://developers.google.com/maps/documentation/directions/?hl=zh_TW) 提供即時的路線規劃與導航服務。
 - 額外支援 [NASA API](https://api.nasa.gov/)，每日推送美麗的星空照片，讓校園導覽增添一點浪漫氛圍。  
   > （雖然跟校園導覽無關，但增添趣味與氣氛！）
 
