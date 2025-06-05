@@ -580,6 +580,7 @@ import google.generativeai as genai
 import requests
 import urllib.parse
 from dotenv import load_dotenv
+from rag_for_location import build_prompt_location
 load_dotenv()
 
 # 讀取金鑰
@@ -896,13 +897,15 @@ def list_available_destinations():
     return destinations
 def clarify_destinations(user_input):
     locatation =list_available_destinations()
-    prompt = f"""以下為我校目前有的地點:\n{locatation}，
+    locatation_info = build_prompt_location(user_input)
+    prompt = f"""以下為你可以參考的資料:\n{locatation_info}，
     請根據使用者的描述:{user_input}，從中挑選一個最有可能的地點，只需要回復地點的名字，不准回復多餘的解釋，更不要輸出空格或是跳脫字元。"""
+    print(f"輸入:\n{prompt}")
     response = model.generate_content(prompt)
     response_text = response.candidates[0].content.parts[0].text
     print(f"{response_text}")
     return response_text
-
+clarify_destinations("我要上音樂課")
     
 """
 # 測試範例：從某個經緯度到游泳池
