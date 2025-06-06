@@ -580,7 +580,8 @@ import google.generativeai as genai
 import requests
 import urllib.parse
 from dotenv import load_dotenv
-from rag_for_location import build_prompt_location
+from shapely.geometry import Point, Polygon
+import math
 load_dotenv()
 
 # 讀取金鑰
@@ -598,25 +599,8 @@ model = genai.GenerativeModel("gemini-2.0-flash")
 with open("location.json", "r", encoding="utf-8") as f:
     CAMPUS_ZONES = json.load(f)["zones"]
 
-def get_static_map_url(origin_latlng, dest_latlng, polyline):
-    """
-    生成靜態地圖 URL，同時返回包含 API 金鑰的完整 URL 和不含金鑰的分享 URL
-    """
-    base_url = "https://maps.googleapis.com/maps/api/staticmap?"
-
-    params = {
-        "size": "640x400",
-        "maptype": "roadmap",
-        "markers": [
-            f"color:red|label:S|{origin_latlng[0]},{origin_latlng[1]}",
-            f"color:blue|label:E|{dest_latlng[0]},{dest_latlng[1]}"
-        ],
-        "path": f"enc:{polyline}",
-        "key": GOOGLE_MAPS_API_KEY
-    }
-
-    marker_params = "&".join([f"markers={urllib.parse.quote(m)}" for m in params["markers"]])
-    full_url = f"{base_url}size={params['size']}&maptype={params['maptype']}&{marker_params}&path={params['path']}&key={params['key']}"
+def get_map_url(origin_latlng, dest_latlng, polyline):
+    
     
     # 生成 Google Maps 分享連結（不含 API 金鑰）
     share_url = f"https://www.google.com/maps/dir/{origin_latlng[0]},{origin_latlng[1]}/{dest_latlng[0]},{dest_latlng[1]}/data=!3m1!4b1!4m2!4m1!3e2"
@@ -694,6 +678,52 @@ def find_destination_location(destination_name, origin_coords):
     
     return None, None
 
+
+
+def get_direction(dx, dy):
+    if abs(dx) > abs(dy):
+        return "東" if dx > 0 else "西"
+    else:
+        return "北" if dy > 0 else "南"
+
+def distance_m(lat1, lng1, lat2, lng2):
+    # 粗略距離估算（經度緯度差約 111000 公尺）
+    dx = (lng2 - lng1) * 111000 * math.cos(math.radians((lat1 + lat2) / 2))
+    dy = (lat2 - lat1) * 111000
+    return math.hypot(dx, dy), dx, dy
+
+def find_relative_position(lat_lng):
+    point = Point(lat_lng[0], lat_lng[1])  # (lat, lng)
+
+    # 1. 先檢查是否落在區域內
+    for zone in CAMPUS_ZONES:
+        polygon = Polygon(zone['polygon'])
+        if polygon.contains(point):
+            return f"您位於「{zone['name']}」區域內"
+
+    # 2. 不在任何區域內，找最近的建築與方向
+    nearest = None
+    min_dist = float('inf')
+    for zone in CAMPUS_ZONES:
+        points = [(lng, lat) for lat, lng in zone['polygon']]
+        poly = Polygon(points)
+        centroid = poly.centroid
+        dist, dx, dy = distance_m(lat_lng[0], lat_lng[1], centroid.y, centroid.x)
+        #print(f"{dist},{lat_lng[0]},{lat_lng[1]},{centroid.y},{centroid.x}")
+        if dist < min_dist:
+            min_dist = dist
+            direction = get_direction(dx, dy)
+            nearest = (zone['name'], direction, round(dist))
+
+    if nearest:
+        return f"距離您最近的建築是「{nearest[0]}」，位於您{nearest[1]}方，距離約 {nearest[2]} 公尺"
+    else:
+        return "無法判斷位置"
+
+"""# 範例
+end_location = (25.0359658, 121.5400334)
+print(find_relative_position(end_location))
+        """
 def validate_coordinates(lat, lng):
     """驗證經緯度格式是否正確"""
     try:
@@ -727,6 +757,7 @@ def get_route(origin_coords, destination_name):
 
     try:
         directions = gmaps.directions(origin, destination, mode="walking")
+        #print(directions)
         if not directions:
             return None, "無法規劃路線"
         """"
@@ -746,6 +777,7 @@ def get_route(origin_coords, destination_name):
             distance = step['distance']['value']
             duration = step['duration']['text']
             direction = step.get("maneuver", "")
+            end_location =step['end_location']['lat'],step['end_location']['lng']
             # 生成更自然的描述
             segment = {
                 'step_number': i + 1,
@@ -754,7 +786,8 @@ def get_route(origin_coords, destination_name):
                 'duration': duration,
                 'direction': direction,
                 'raw_instruction': text,
-                'html': html
+                'html': html,
+                'end_location' : end_location
             }
             
             route_segments.append(segment)
@@ -763,7 +796,7 @@ def get_route(origin_coords, destination_name):
         dest_loc = directions[0]['legs'][0]['end_location']
         polyline = directions[0]['overview_polyline']['points']
 
-        share_url = get_static_map_url(
+        share_url = get_map_url(
             (origin_loc['lat'], origin_loc['lng']), 
             (dest_loc['lat'], dest_loc['lng']), 
             polyline
@@ -798,10 +831,10 @@ def generate_natural_guide(route_info, destination_name):
         distance = segment['distance']
         duration = segment['duration']
         direction = segment['direction']
-        
+        end_location =segment['end_location']
         
         # 構建這一段的描述
-        step_desc = f"第{step_num}段：走{distance}公尺（約{duration}）"
+        step_desc = f"第{step_num}段：走{distance}公尺（約{duration}）,到達終點時,,{end_location},{find_relative_position(end_location)}"
         
         
             
@@ -819,7 +852,7 @@ def generate_natural_guide(route_info, destination_name):
     
     route_details = "\n".join(detailed_route)
     
-    prompt = f"""你是一位親切又專業的校園導覽員，正在為遊客提供真人語音導覽服務。
+    prompt = f"""
 
 目的地：{destination_name}
 總行程：{total_distance}，預計需要{total_duration}
@@ -827,20 +860,12 @@ def generate_natural_guide(route_info, destination_name):
 詳細路線資訊：
 {route_details}
 
-請用自然、口語化的方式為遊客提供導覽解說，就像你在現場陪同他們走路一樣。要求：
-
-1. 用第一人稱"我們"開始，營造陪伴感
-2. 適時提到時間估算和經過的地標
-3. 語氣要親切自然，就像朋友間的對話
-4. 可以加入一些貼心提醒或有趣的觀察
-5. 最後要有抵達目的地的確認
-
-範例風格："好的，我們現在要前往{destination_name}，整個路程大約需要{total_duration}。讓我帶著你一起走..."
-
-請生成完整的導覽內容："""
+範例生成:請遵照以下指引{route_details}
+請生成完整的路線指引內容："""
 
     try:
         response = model.generate_content(prompt)
+        #print(f"{route_details}")
         return response.text
     except Exception as e:
         return f"導覽生成失敗: {str(e)}"
@@ -875,8 +900,7 @@ def get_guide(origin_lat, origin_lng, destination_name):
 🎙️ 語音導覽：
 {guide}
 
-🗺️ 地圖連結：
-📱 分享連結：{route_info['share_url']}
+🗺️ 地圖連結：{route_info['share_url']}
 """
     
     return result_text
@@ -887,30 +911,49 @@ def list_available_destinations():
     for zone in CAMPUS_ZONES:
         name = zone.get("name", "")
         nickname = zone.get("nickname", "")
-        type=zone.get("type", "")
-        description =zone.get("description", "")
+        zone_type = zone.get("type", "")
+        department = zone.get("department", {})
+        description = zone.get("description", "")
+
+        # 名稱 + 暱稱
         if nickname:
-            destinations+=(f"{name}({nickname}--{type}，地點特色:{description})\n")
+            destinations += f"{name}（{nickname}）:\n"
         else:
-            destinations+=(f"{name}--{type}，地點特色:{description}\n")
+            destinations += f"{name}:\n"
+
+        # 類型與描述
+        if zone_type == "building":
+            destinations += f"\t{name}是一棟建築，地點特色：{description}\n"
+        else:
+            destinations += f"\t{name}是一個開放空間，地點特色：{description}\n"
+
+        # 加入樓層資訊（若有）
+        if isinstance(department, dict) and department:
+            destinations += "\t樓層分佈如下：\n"
+            for floor, rooms in department.items():
+                room_list = "、".join(rooms)
+                destinations += f"\t\t．{floor}：{room_list}\n"
+
+    destinations += "\n"  # 每個地點之間空一行
+        
     
     return destinations
 def clarify_destinations(user_input):
     locatation =list_available_destinations()
-    locatation_info = build_prompt_location(user_input)
-    prompt = f"""以下為你可以參考的資料:\n{locatation_info}，
+    
+    prompt = f"""以下為你可以參考的資料:\n{locatation}，
     請根據使用者的描述:{user_input}，從中挑選一個最有可能的地點，只需要回復地點的名字，不准回復多餘的解釋，更不要輸出空格或是跳脫字元。"""
-    print(f"輸入:\n{prompt}")
+    #print(f"輸入:\n{prompt}")
     response = model.generate_content(prompt)
     response_text = response.candidates[0].content.parts[0].text
-    print(f"{response_text}")
+    #print(f"{response_text}")
     return response_text
-clarify_destinations("我要上音樂課")
+
+#clarify_destinations("我要上音樂課")
     
 """
 # 測試範例：從某個經緯度到游泳池
 result = get_guide(25.034211880335942, 121.5410756183926, "游泳池")
 print("範例導覽結果：")
 print(result)
-print(str(list_available_destinations()))
-"""
+#print(str(list_available_destinations()))"""
