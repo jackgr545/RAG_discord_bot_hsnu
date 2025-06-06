@@ -12,4 +12,5 @@ dependencies = [
     "google-search-results>=2.4.2",
     "googlemaps>=4.10.0",
     "sentence-transformers>=4.1.0",
+    "shapely>=2.1.1",
 ]
