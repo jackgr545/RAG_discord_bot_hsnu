@@ -94,9 +94,9 @@ async def google_map(interaction :discord.Interaction,你的位置 : str,想去�
     
     global chat_history
     global t 
-    想去之地=clarify_destinations(想去之地).strip()#清理多餘的\n
+    #想去之地=clarify_destinations(想去之地).strip()#清理多餘的\n
     latitude,longitude= 你的位置.split(",")
-    result = get_guide(origin_lat=latitude,origin_lng=longitude,destination_name=想去之地)
+    result = get_guide(origin_lat=latitude,origin_lng=longitude,destination_name=想去之地,t=t)
     t+=1
     chat_history+=f"第{t}次的使用者輸入:幫我規劃從{你的位置}到{想去之地}的路線，並提供導覽\n"
     chat_history+=f"對第{t}次使用者的回覆:{result}\n"

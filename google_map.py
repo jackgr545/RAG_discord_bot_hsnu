@@ -758,6 +758,69 @@ def get_route(origin_coords, destination_name):
     try:
         directions = gmaps.directions(origin, destination, mode="walking")
         #print(directions)
+        """directions example
+        [
+            {
+                "bounds": {  // 整體路線的邊界座標（可用來設定地圖顯示範圍）
+                "northeast": { "lat": 25.0359658, "lng": 121.5413522 },
+                "southwest": { "lat": 25.034209, "lng": 121.5400334 }
+                },
+                "copyrights": "Powered by Google, ©2025 Google",
+
+                "legs": [  // 路線分段（通常只有一段，除非有經過點）
+                {
+                    "distance": { "text": "0.3 km", "value": 318 }, // 總距離
+                    "duration": { "text": "4 mins", "value": 258 }, // 預估時間（秒）
+                    "start_address": "師大附中東樓",  // 起點地址
+                    "end_address": "信義路三段111巷143號",  // 終點地址
+
+                    "start_location": { "lat": 25.034209, "lng": 121.5413522 },  // 起點經緯度
+                    "end_location": { "lat": 25.0359658, "lng": 121.5400334 },    // 終點經緯度
+
+                    "steps": [  // 逐步導引指令，每一段步行路線
+                    {
+                        "distance": { "text": "0.2 km", "value": 230 },   // 本步驟距離
+                        "duration": { "text": "3 mins", "value": 184 },   // 本步驟耗時
+                        "start_location": { "lat": 25.034209, "lng": 121.5413522 },
+                        "end_location": { "lat": 25.0353246, "lng": 121.5402866 },
+                        "html_instructions": "Head <b>north</b> toward <b>操場</b>", // 導引提示（含 HTML）
+                        "polyline": {
+                        "points": "ynxwCmpydViBAmBBADApB?PAv@?N"  // 壓縮的座標編碼（可解碼畫線）
+                        },
+                        "travel_mode": "WALKING"
+                    },
+                    {
+                        "distance": { "text": "88 m", "value": 88 },
+                        "duration": { "text": "1 min", "value": 74 },
+                        "start_location": { "lat": 25.0353246, "lng": 121.5402866 },
+                        "end_location": { "lat": 25.0359658, "lng": 121.5400334 },
+                        "html_instructions": "Turn <b>right</b><div style=\"font-size:0.9em\">Destination will be on the left</div>",
+                        "maneuver": "turn-right",  // 動作提示（右轉）
+                        "polyline": {
+                        "points": "wuxwCyiydVOAi@AA@A??BAD?H?FAFCFCBC@C@C?C?g@@"  // 壓縮路徑
+                        },
+                        "travel_mode": "WALKING"
+                    }
+                    ],
+
+                    "traffic_speed_entry": [],   // 交通速度資料（步行時通常空）
+                    "via_waypoint": []           // 經過點（無設置時為空）
+                }
+                ],
+
+                "overview_polyline": {
+                "points": "ynxwCmpydVwE@CvBAhA?NOAk@?ABC^GJGBo@@"  // 全路線的壓縮多段路線
+                },
+
+                "summary": "",  // 總結文字（步行可能沒有）
+                "warnings": [
+                "Walking directions are in beta. Use caution – This route may be missing sidewalks or pedestrian paths."
+                ],
+
+                "waypoint_order": []  // 經過點順序（若有）
+            }
+        ]
+        """
         if not directions:
             return None, "無法規劃路線"
         """"
@@ -870,7 +933,7 @@ def generate_natural_guide(route_info, destination_name):
     except Exception as e:
         return f"導覽生成失敗: {str(e)}"
 
-def get_guide(origin_lat, origin_lng, destination_name):
+def get_guide(origin_lat, origin_lng, destination_name,t):
     """
     主要功能函數
     origin_lat, origin_lng: 起點經緯度
@@ -882,7 +945,9 @@ def get_guide(origin_lat, origin_lng, destination_name):
         return f"❌ 起點座標錯誤: {result}"
     
     origin_coords = result
-    
+    print(f"\n--------------------------以下為第{t+1}輪對話--------------------------\n使用者輸入:從{origin_coords}到{destination_name}\n")
+    destination_name=clarify_destinations(destination_name).strip()#清理多餘/n
+    print(f"AI翻譯的結果:從{origin_coords}到{destination_name}\n")
     # 獲取路線
     route_result, error = get_route(origin_coords, destination_name)
     if error:
@@ -894,15 +959,16 @@ def get_guide(origin_lat, origin_lng, destination_name):
     guide = generate_natural_guide(route_info, destination_name)
     
     # 組合最終結果
-    result_text = f"""📍 導航至「{destination_name}」（{entry_info}）
-⏱️ 預計時間：{route_info['total_distance']}，約{route_info['total_duration']}
+    result_text = f"""
+    📍 導航至「{destination_name}」（{entry_info}）
+    ⏱️ 預計時間：{route_info['total_distance']}，約{route_info['total_duration']}
 
-🎙️ 語音導覽：
-{guide}
+    ⭐ 詳細導覽：
+    \t{guide}
 
-🗺️ 地圖連結：{route_info['share_url']}
+    🗺️ 地圖連結：\n{route_info['share_url']}
 """
-    
+    print(f"AI 生成的導航:{result_text}")
     return result_text
 
 def list_available_destinations():
@@ -917,9 +983,9 @@ def list_available_destinations():
 
         # 名稱 + 暱稱
         if nickname:
-            destinations += f"{name}（{nickname}）:\n"
+            destinations += f"地點--{name}（{nickname}）:\n"
         else:
-            destinations += f"{name}:\n"
+            destinations += f"地點--{name}:\n"
 
         # 類型與描述
         if zone_type == "building":
