@@ -2,7 +2,7 @@
 
 這是一個專為 **師大附中** 設計的校園導覽 Discord 機器人，使用 Python 開發，整合多種 API 並搭配 Gemini 語言模型，提供互動式語言生成與即時導航功能。
 
----
+
 
 ## 功能簡介
 
@@ -12,11 +12,7 @@
 - 額外支援 [NASA API](https://api.nasa.gov/)，每日推送美麗的星空照片，讓校園導覽增添一點浪漫氛圍。  
   > （雖然跟校園導覽無關，但增添趣味與氣氛！）
 
----
-## to_do
 
-幫/google_map加入室內導航
----
 
 ## 安裝方式
 
@@ -39,7 +35,7 @@
 
 5. 將 `example.env` 複製並重新命名為 `.env`，並依說明設定你的 API 金鑰。
 
----
+
 
 ### 方式二：手動下載 ZIP 檔
 
@@ -55,7 +51,7 @@
 
 4. 將 `example.env` 複製並重新命名為 `.env`，並依說明設定你的 API 金鑰。
 
----
+
 
 ## API 金鑰與環境變數設定
 
@@ -83,7 +79,7 @@
   
   請不要分享您的TOKEN給別人
 
----
+
 
 ### DISCORD_SERVER_ID
 
@@ -97,7 +93,7 @@
 
 3. 複製伺服器ID，貼到`.env`中的DISCORD_SERVER_ID =**在這裡貼上您的伺服器ID**
 
----
+
 
 ### GEMINI_API
 1. 前往[Gemini API](https://aistudio.google.com/apikey)，並點下create API
@@ -110,7 +106,7 @@
    
   請不要隨意洩漏您的API，這相當於忘記登出的GMAIL帳號，任何人都可以使用
 
----
+
 
 ### SERPAPI_API_KEY
 1. 前往[SerpAPI](https://serpapi.com/)，如果你是第一次來請註冊，驗證手機與電子郵件
@@ -122,7 +118,8 @@
 3. 貼到`.env`中的SERPAPI_API_KEY ="**在這裡貼上您的Your Private API Key**"
   請不要隨意洩漏您的api
 
----
+
+
 ### GOOGLE_MAPS_API
 開始前提醒您，為了激活90天免費試用，您需要一張信用卡用於註冊
 1. 前往[Google Cloud Console](https://console.cloud.google.com/apis/dashboard)
@@ -154,7 +151,7 @@
    
     ![螢幕擷取畫面 2025-06-02 214408](https://github.com/user-attachments/assets/2ba93e86-be76-4ce0-9abf-d81058b6a4b5)
 
----
+
 
 ### NASA_API
 
@@ -162,7 +159,7 @@
 2. 誠實填寫您的電子郵件，之後api就會被發送到您的信箱了
 3. 複製粘貼到`.env`中的NASA_API ="**在這裡貼上您的NASA API KEY**"
 
-----
+
 ## 執行
 
 1. 在TERMINAL中輸入以下指令
