@@ -17,7 +17,7 @@
 
 ## 針對新手的詳細指引
 如果您是新手，請參考`detailed_guides.md`。
-[詳細的安裝步驟與API設定](detailed_guides.md)
+ [詳細的安裝步驟與API設定](detailed_guides.md)
 ## 安裝步驟
 
 **注意：** 需要 Python 3.10 版本
