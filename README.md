@@ -3,8 +3,8 @@
 這是一個專為 **師大附中** 設計的校園導覽 Discord 機器人，使用 Python 開發，整合多種 API 並搭配 Gemini 語言模型，提供互動式語言生成與即時導航功能。
 
 
-[架構簡圖](https://github.com/user-attachments/assets/dbda5e6a-e820-4680-a930-612de523fc20)
-[google_map功能簡圖](https://github.com/user-attachments/assets/16b577bd-a4f2-4c85-8339-40a5f984e2b0)
+[架構簡圖](https://github.com/user-attachments/assets/f4de69d1-de4d-4dfe-9940-0591b335b9d6)
+[google_map功能簡圖](https://github.com/user-attachments/assets/ee66c567-ddf9-4147-bdb3-69b0473f0974)
 
 
 
