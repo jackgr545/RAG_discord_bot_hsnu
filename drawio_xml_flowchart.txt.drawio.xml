@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36" version="27.1.4">
+  <diagram name="Python Functions Flowchart" id="flowchart">
+    <mxGraphModel dx="1326" dy="763" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="A" value="程式啟動" style="ellipse;whiteSpace=wrap;html=1;fillColor=#e1f5fe;" parent="1" vertex="1">
+          <mxGeometry x="360" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="B" value="載入環境變數 .env" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="360" y="140" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="C" value="初始化 Discord Bot" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="360" y="240" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="D" value="bot.run 啟動機器人" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="360" y="340" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="E" value="使用者輸入指令" style="rhombus;whiteSpace=wrap;html=1;fillColor=#f3e5f5;" parent="1" vertex="1">
+          <mxGeometry x="340" y="440" width="160" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="F" value="/ask 指令" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="80" y="580" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="G" value="/google_search 指令" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="220" y="580" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="H" value="/apod 指令" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="380" y="580" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="I" value="/google_map 指令" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffcdd2;" parent="1" vertex="1">
+          <mxGeometry x="520" y="580" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="J" value="呼叫 generate()&#xa;mode=just_RAG" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="80" y="680" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="K" value="呼叫 generate()&#xa;mode=google_search" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="220" y="680" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="L" value="呼叫 apod函式&#xa;取得NASA資料" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="380" y="680" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="M" value="解析經緯度座標" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffcdd2;" parent="1" vertex="1">
+          <mxGeometry x="520" y="680" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="P" value="������ 獨立的Google Maps流程開始" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffcdd2;" parent="1" vertex="1">
+          <mxGeometry x="520" y="780" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="N" value="generate函式流程" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff3e0;" parent="1" vertex="1">
+          <mxGeometry x="200" y="800" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="O" value="呼叫 generate()&#xa;mode=nasa_apod" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="380" y="780" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Q" value="檢查模式 mode" style="rhombus;whiteSpace=wrap;html=1;fillColor=#f3e5f5;" parent="1" vertex="1">
+          <mxGeometry x="200" y="920" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="R" value="呼叫 summarize_search函式" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="40" y="1060" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="S" value="呼叫 build_prompt函式" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="200" y="1060" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="T" value="處理NASA天文照片資料" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="360" y="1060" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="U" value="search_google函式" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="40" y="1160" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="V" value="取得Google搜尋結果" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="40" y="1260" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="W" value="用Gemini總結搜尋結果" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="40" y="1360" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="X" value="retrieve_top_k函式" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="200" y="1160" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Y" value="用SentenceTransformer編碼查詢" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="200" y="1260" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Z" value="FAISS向量搜尋" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="200" y="1360" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="AA" value="回傳最相關的K段文件" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="200" y="1460" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="BB" value="建構RAG提示詞" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="200" y="1560" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="CC" value="組合最終提示詞" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="200" y="1680" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DD" value="呼叫Gemini API生成回應" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e8;" parent="1" vertex="1">
+          <mxGeometry x="200" y="1780" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="EE" value="回傳AI回應給Discord" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff8e1;" parent="1" vertex="1">
+          <mxGeometry x="200" y="1880" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="P1" value="validate_coordinates 驗證座標" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffcdd2;" parent="1" vertex="1">
+          <mxGeometry x="520" y="880" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="P2" value="clarify_destinations 用AI翻譯地點" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffcdd2;" parent="1" vertex="1">
+          <mxGeometry x="520" y="980" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="P3" value="find_destination_location 查找目的地座標" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffcdd2;" parent="1" vertex="1">
+          <mxGeometry x="520" y="1080" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="P4" value="get_route 呼叫Google Maps API" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffcdd2;" parent="1" vertex="1">
+          <mxGeometry x="520" y="1180" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="P5" value="generate_natural_guide 用AI生成導覽" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffcdd2;" parent="1" vertex="1">
+          <mxGeometry x="520" y="1280" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="P6" value="組合導航結果文字" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffcdd2;" parent="1" vertex="1">
+          <mxGeometry x="520" y="1380" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="GG" value="回傳導航結果給Discord" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffcdd2;" parent="1" vertex="1">
+          <mxGeometry x="520" y="1480" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="HH" value="更新對話歷史記錄" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="520" y="1880" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="II" value="等待下一個指令" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="610" y="1740" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="edge1" parent="1" source="A" target="B" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge2" parent="1" source="B" target="C" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge3" parent="1" source="C" target="D" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge4" parent="1" source="D" target="E" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge5" parent="1" source="E" target="F" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge6" parent="1" source="E" target="G" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge7" parent="1" source="E" target="H" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge8" parent="1" source="E" target="I" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge9" parent="1" source="F" target="J" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge10" parent="1" source="G" target="K" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge11" parent="1" source="H" target="L" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge12" parent="1" source="I" target="M" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge13" parent="1" source="M" target="P" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge14" parent="1" source="J" target="N" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge15" parent="1" source="K" target="N" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge16" parent="1" source="L" target="O" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge17" parent="1" source="O" target="N" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge18" parent="1" source="N" target="Q" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge19" parent="1" source="Q" target="R" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge20" parent="1" source="Q" target="S" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge21" parent="1" source="Q" target="T" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge22" parent="1" source="R" target="U" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge23" parent="1" source="U" target="V" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge24" parent="1" source="V" target="W" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge25" parent="1" source="S" target="X" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge26" parent="1" source="X" target="Y" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge27" parent="1" source="Y" target="Z" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge28" parent="1" source="Z" target="AA" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge29" parent="1" source="AA" target="BB" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge30" parent="1" source="W" target="CC" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="100" y="1710" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge31" parent="1" source="BB" target="CC" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge32" parent="1" source="T" target="CC" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="410" y="1710" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge33" parent="1" source="CC" target="DD" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge34" parent="1" source="DD" target="EE" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge35" parent="1" source="P" target="P1" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge36" parent="1" source="P1" target="P2" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge37" parent="1" source="P2" target="P3" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge38" parent="1" source="P3" target="P4" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge39" parent="1" source="P4" target="P5" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge40" parent="1" source="P5" target="P6" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge41" parent="1" source="P6" target="GG" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge42" parent="1" source="EE" target="HH" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge43" parent="1" source="GG" target="HH" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge44" parent="1" source="HH" target="II" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="670" y="1910" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge45" style="exitX=0.5;exitY=0;exitDx=0;exitDy=0;" parent="1" source="II" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="670" y="1730" />
+              <mxPoint x="670" y="400" />
+            </Array>
+            <mxPoint x="662" y="1710" as="sourcePoint" />
+            <mxPoint x="510" y="400" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
