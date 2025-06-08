@@ -15,9 +15,12 @@
 - 額外支援 [NASA API](https://api.nasa.gov/)，每日推送美麗的星空照片，讓校園導覽增添一點浪漫氛圍。  
   > （雖然跟校園導覽無關，但增添趣味與氣氛！）
 
-## 詳細指引
+## 針對新手的詳細指引
 如果您是新手，請參考`detailed_guides.md`。
+[詳細的安裝步驟與API設定](detailed_guides.md)
 ## 安裝步驟
+
+**注意：** 需要 Python 3.10 版本
 
 ### 方法1：Git 下載
 ```bash
@@ -30,7 +33,7 @@ pip install -r requirements.txt
 1. 到 GitHub 下載 ZIP 檔案並解壓縮
 2. 安裝依賴：`pip install -r requirements.txt`
 
-**注意：** 需要 Python 3.10 版本
+
 
 ## API 設定
 
