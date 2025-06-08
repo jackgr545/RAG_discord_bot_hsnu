@@ -25,8 +25,6 @@ hsnu_copilt/
 ├── location.json           # 記錄校園地點的詳細信息
 ├── docs.json               # 用於進行RAG的資料
 ├── docs.txt                # 用於進行RAG的資料
-
-
 ```
 ## 功能簡介
 
