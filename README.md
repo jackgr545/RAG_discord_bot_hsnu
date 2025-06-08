@@ -11,6 +11,7 @@
 ```
 hsnu_copilt/
 ├── README.md               # 說明文件
+├── detailed_guides.md      # 新手引導文件
 ├── .gitignore              # Git 忽略檔案清單
 ├── .python-version         # uv創建的文件，用於紀錄python版本
 ├── uv.lock                 # uv創建的文件，用於紀錄詳細的庫依賴
