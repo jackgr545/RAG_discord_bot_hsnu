@@ -6,8 +6,28 @@
 [架構簡圖](https://github.com/user-attachments/assets/f4de69d1-de4d-4dfe-9940-0591b335b9d6)
 [google_map功能簡圖](https://github.com/user-attachments/assets/ee66c567-ddf9-4147-bdb3-69b0473f0974)
 
+## 目錄結構
+
+```
+hsnu_copilt/
+├── README.md               # 說明文件
+├── .gitignore              # Git 忽略檔案清單
+├── .python-version         # uv創建的文件，用於紀錄python版本
+├── uv.lock                 # uv創建的文件，用於紀錄詳細的庫依賴
+├── pyproject.toml          # uv創建的文件，紀錄依賴與專案基礎訊息
+├── requirements.txt        # Python 依賴清單
+├── example.env             # 環境變數範例檔
+├── main.py                 # 主程式/discord_bot
+├── generate_response.py    # Gemini生成
+├── google_map.py           # 調用google_map_api，並使用Gemini生成詳細導覽
+├── rag_engine.py           # RAG的程式
+├── nasa.py                 # 呼叫nasa_api
+├── location.json           # 記錄校園地點的詳細信息
+├── docs.json               # 用於進行RAG的資料
+├── docs.txt                # 用於進行RAG的資料
 
 
+```
 ## 功能簡介
 
 - 使用 [Gemini API](https://aistudio.google.com/apikey) 進行自然語言生成，根據使用者輸入提供智能回應。
