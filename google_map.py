@@ -720,10 +720,10 @@ def find_relative_position(lat_lng):
     else:
         return "無法判斷位置"
 
-"""# 範例
-end_location = (25.0359658, 121.5400334)
+"""
+end_location = (25.03426314329715, 121.54021701155123)
 print(find_relative_position(end_location))
-        """
+"""
 def validate_coordinates(lat, lng):
     """驗證經緯度格式是否正確"""
     try:
@@ -877,14 +877,14 @@ def get_route(origin_coords, destination_name):
     except Exception as e:
         return None, f"路線規劃發生錯誤: {str(e)}"
 
-def generate_natural_guide(route_info, destination_name):
+def generate_natural_guide(route_info, destination_name,user_input):
     """
     生成更自然、像人類導覽員的語音導覽
     """
     segments = route_info['segments']
     total_duration = route_info['total_duration']
     total_distance = route_info['total_distance']
-    
+    indoor_info=get_indoor_info(destination_name)
     # 建立詳細的路線描述
     detailed_route = []
     
@@ -923,8 +923,12 @@ def generate_natural_guide(route_info, destination_name):
 詳細路線資訊：
 {route_details}
 
-範例生成:請遵照以下指引{route_details}
-請生成完整的路線指引內容："""
+室內資訊:
+{indoor_info}
+使用者想去:
+{user_input}
+範例生成:**Step 1** :走多少公尺，時長多少分鐘，最後會到達校園中的哪裡...**Step 2**...到達目的地後請上幾樓
+請根據上述資料生成完整的路線指引內容："""
 
     try:
         response = model.generate_content(prompt)
@@ -946,6 +950,7 @@ def get_guide(origin_lat, origin_lng, destination_name,t):
     
     origin_coords = result
     print(f"\n--------------------------以下為第{t+1}輪對話--------------------------\n使用者輸入:從{origin_coords}到{destination_name}\n")
+    user_input =destination_name
     destination_name=clarify_destinations(destination_name).strip()#清理多餘/n
     print(f"AI翻譯的結果:從{origin_coords}到{destination_name}\n")
     # 獲取路線
@@ -956,7 +961,7 @@ def get_guide(origin_lat, origin_lng, destination_name,t):
     route_info, entry_info = route_result
     
     # 生成自然的導覽
-    guide = generate_natural_guide(route_info, destination_name)
+    guide = generate_natural_guide(route_info, destination_name,user_input)
     
     # 組合最終結果
     result_text = f"""
@@ -974,13 +979,14 @@ def get_guide(origin_lat, origin_lng, destination_name,t):
 def list_available_destinations():
     """列出所有可用的目的地"""
     destinations = ""
+    locations =[]
     for zone in CAMPUS_ZONES:
         name = zone.get("name", "")
         nickname = zone.get("nickname", "")
         zone_type = zone.get("type", "")
         department = zone.get("department", {})
         description = zone.get("description", "")
-
+        locations.append(name)
         # 名稱 + 暱稱
         if nickname:
             destinations += f"地點--{name}（{nickname}）:\n"
@@ -1001,14 +1007,13 @@ def list_available_destinations():
                 destinations += f"\t\t．{floor}：{room_list}\n"
 
     destinations += "\n"  # 每個地點之間空一行
-        
     
-    return destinations
+    return destinations,locations
+
 def clarify_destinations(user_input):
-    locatation =list_available_destinations()
-    
-    prompt = f"""以下為你可以參考的資料:\n{locatation}，
-    請根據使用者的描述:{user_input}，從中挑選一個最有可能的地點，只需要回復地點的名字，不准回復多餘的解釋，更不要輸出空格或是跳脫字元。"""
+    locatation_info,locatations=list_available_destinations()
+    prompt = f"""以下為你可以參考的資料:\n{locatation_info}。\n
+    請根據使用者的描述:{user_input}，從{locatations}中挑選一個地點，只能挑選一個，只需要回復地點的名字，不准回復多餘的解釋，更不要輸出空格或是跳脫字元。"""
     #print(f"輸入:\n{prompt}")
     response = model.generate_content(prompt)
     response_text = response.candidates[0].content.parts[0].text
@@ -1017,6 +1022,21 @@ def clarify_destinations(user_input):
 
 #clarify_destinations("我要上音樂課")
     
+def get_indoor_info(location_name):
+    indoor_info = ""
+    for zone in CAMPUS_ZONES:
+        name = zone.get("name", "")
+        if name == location_name :
+            department = zone.get("department", {})
+            if isinstance(department, dict) and department:
+                indoor_info+= f"{location_name}的樓層分佈如下：\n"
+                for floor, rooms in department.items():
+                    room_list = "、".join(rooms)
+                    indoor_info += f"\t．{floor}：{room_list}\n"
+            break
+    return indoor_info or f"{location_name}是開放空間"
+#測試
+#print(f"{get_indoor_info('至善樓')}")
 """
 # 測試範例：從某個經緯度到游泳池
 result = get_guide(25.034211880335942, 121.5410756183926, "游泳池")
